@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var models = require('../models/index');
 
 router.route('/')
   .get(function(req,res){
-    res.send("cats#index");
+    // res.send("cats#index");
+    models.Cat.find().then(function(cats){
+      res.json(cats);
+    }, function(err){
+      console.log(err);
+    });
   })
   .post(function(req,res){
     res.send("cats#create");
