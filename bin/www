@@ -3,8 +3,12 @@ var http = require('http');
 var app = require('../app.js');
 
 var server = http.createServer(app);
+var models = require('../models/index');
 
 var port = 8000;
-server.listen(port,function(){
-  console.log("server listening on port " + port);
-})
+models.sequelize.sync().then(function(){
+  server.listen(port,function(){
+    console.log("server listening on port " + port);
+  });
+});
+
